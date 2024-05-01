@@ -17,18 +17,63 @@
     <div id="root"></div>
 
     <script type="text/babel">
-      let robot = "🤖";
-      let cowboy = "🤠";
-      let moon = "🌝";
-      let name = "React";
+      function Header(props) {
+        return (
+          <header>
+            <h1>{props.name}'s Kitchen</h1>
+          </header>
+        )
+      }
+
+      function Main(props) {
+        return (
+          <section>
+            <img 
+              height={200}
+              src="./restaurant.webp" 
+              alt="restaurant scene"
+            />
+            <ul>
+              {props.dishes.map((dish) => (
+                <li key={dish.id}>{dish.title}</li>
+              ))}
+            </ul>
+          </section>
+        );
+      }
+
+      function Footer(props) {
+        return (
+          <footer>
+            <p>Copyright {props.year}</p>
+          </footer>
+        )
+      };
+
+      const dishes = [
+        "Black Bean Soup",
+        "Macaroni and Cheese",
+        "Salmon and Potatoes",
+        "Pizza"
+      ];
+
+      const dishObjects = dishes.map((dish, i) => ({
+        id: i,
+        title: dish
+      }));
+
+      function App() {
+        return (
+          <React.Fragment>
+            <Header name="Beth" />
+            <Main adjective="amazing" dishes={dishObjects} />
+            <Footer year={new Date().getFullYear()} />
+          </React.Fragment>
+        )
+      }
+      
       ReactDOM.render(
-        <ul>
-          <li>{robot}</li>
-          <li>{cowboy}</li>
-          <li>{moon}</li>
-          <li>{name.toUpperCase()}</li>
-          <li>{name.length}</li>
-        </ul>,
+        <App />,
         document.getElementById("root")
       );
     </script>
